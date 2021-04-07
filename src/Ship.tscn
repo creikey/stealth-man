@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://DeckArea.gd" type="Script" id=1]
 [ext_resource path="res://Ship.png" type="Texture" id=2]
+[ext_resource path="res://Player.png" type="Texture" id=3]
+[ext_resource path="res://DirectionalLight.png" type="Texture" id=4]
+[ext_resource path="res://CharacterAmbientLight.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 87, 166 )
@@ -9,8 +12,14 @@ extents = Vector2( 87, 166 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 95.2803, 15.3691 )
 
+[sub_resource type="OccluderPolygon2D" id=3]
+polygon = PoolVector2Array( -9.32934, -1.03117, -8.90889, 6.85224, 10.4317, 6.64201, 10.4317, -0.926052 )
+
+[sub_resource type="CapsuleShape2D" id=4]
+height = 7.35159
+
 [node name="Ship" type="KinematicBody2D"]
-position = Vector2( 395.107, 237.962 )
+position = Vector2( 0.10511, 0 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -34,5 +43,30 @@ polygon = PoolVector2Array( -95.25, 165.75, 95, 166.75, 92.25, 185, 78.75, 232.7
 [node name="Back" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -182.044 )
 shape = SubResource( 2 )
+
+[node name="Guard" type="KinematicBody2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Guard"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 16, 15, 16 )
+
+[node name="VisionLight" type="Light2D" parent="Guard"]
+rotation = 1.5708
+texture = ExtResource( 4 )
+offset = Vector2( 115, 0 )
+texture_scale = 0.41
+mode = 2
+shadow_enabled = true
+
+[node name="CharacterAmbientLight" parent="Guard" instance=ExtResource( 5 )]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Guard"]
+visible = false
+occluder = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guard"]
+shape = SubResource( 4 )
 [connection signal="body_entered" from="DeckArea" to="DeckArea" method="_on_DeckArea_body_entered"]
 [connection signal="body_exited" from="DeckArea" to="DeckArea" method="_on_DeckArea_body_exited"]
