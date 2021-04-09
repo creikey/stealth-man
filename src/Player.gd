@@ -12,16 +12,6 @@ var cur_friction = ocean_friction
 var cur_max_speed = ocean_max_speed
 var _vel := Vector2()
 
-func entered_deck():
-	$WaterTrail.leaving_trail = true
-	cur_friction = deck_friction
-	cur_max_speed = deck_ocean_max_speed
-
-func exited_deck():
-	$WaterTrail.leaving_trail = false
-	cur_friction = ocean_friction
-	cur_max_speed = ocean_max_speed
-
 func _physics_process(delta):
 	var horizontal: float = Input.get_action_strength("g_right") - Input.get_action_strength("g_left")
 	var vertical: float = Input.get_action_strength("g_down") - Input.get_action_strength("g_up")
@@ -46,3 +36,18 @@ func _physics_process(delta):
 		_vel = _vel.normalized() * cur_max_speed
 	
 	_vel = move_and_slide(_vel)
+
+
+func _on_DeckListener_entered_deck():
+	$WaterTrail.leaving_trail = true
+	cur_friction = deck_friction
+	cur_max_speed = deck_ocean_max_speed
+
+func _on_DeckListener_exited_deck():
+	$WaterTrail.leaving_trail = false
+	cur_friction = ocean_friction
+	cur_max_speed = ocean_max_speed
+
+# fullfills aggros guards
+func push(push: Vector2):
+	_vel += push
