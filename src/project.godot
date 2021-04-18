@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://Player.gd"
+}, {
+"base": "Node",
+"class": "Util",
+"language": "GDScript",
+"path": "res://Util.gd"
 } ]
 _global_script_class_icons={
 "DeckListener": "",
-"Player": ""
+"Player": "",
+"Util": ""
 }
 
 [application]
@@ -30,10 +36,20 @@ config/name="Stealth Man"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[deploy]
+
+netlify/subdomain="sad-liskov-b345d9.netlify.app"
+
 [display]
 
 window/size/width=1920
 window/size/height=1080
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "automatic_deploy" )
 
 [importer_defaults]
 

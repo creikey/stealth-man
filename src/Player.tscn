@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://CharacterAmbientLight.tscn" type="PackedScene" id=2]
+[ext_resource path="res://FourDirectionSprite.tscn" type="PackedScene" id=3]
+[ext_resource path="res://WaterTrail.gd" type="Script" id=5]
+[ext_resource path="res://DeckListener.gd" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11.1077, 15.986 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -9.25635, -14.1039, -9.02039, 11.8526, 8.91333, 11.8526, 9.14929, -14.1039 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"aggros_guards",
+"warmed",
+]]
+position = Vector2( 1837.77, 678.152 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+
+[node name="WaterTrail" type="Node2D" parent="."]
+show_behind_parent = true
+script = ExtResource( 5 )
+_color = Color( 0.129412, 0.337255, 0.494118, 1 )
+
+[node name="CharacterAmbientLight" parent="." instance=ExtResource( 2 )]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+occluder = SubResource( 2 )
+
+[node name="DeckListener" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="FourDirectionSprite" parent="." instance=ExtResource( 3 )]
+[connection signal="entered_deck" from="DeckListener" to="." method="_on_DeckListener_entered_deck"]
+[connection signal="exited_deck" from="DeckListener" to="." method="_on_DeckListener_exited_deck"]

@@ -1,0 +1,163 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Player.png" type="Texture" id=1]
+[ext_resource path="res://FourDirectionSprite.gd" type="Script" id=2]
+
+[sub_resource type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "left"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "right"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "down"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=14]
+blend_point_0/node = SubResource( 3 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 4 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 12 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 13 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="Animation" id=8]
+resource_name = "down"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Rect2( 0, 16, 15, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=9]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Rect2( 0, 0, 15, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=15]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Rect2( 0, 0, 15, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=11]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Rect2( 16, 16, 15, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="FourDirectionSprite" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 16, 16, 15, 16 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 14 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/blend_position = Vector2( 0.142376, -1.11207 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/down = SubResource( 8 )
+anims/left = SubResource( 9 )
+anims/right = SubResource( 15 )
+anims/up = SubResource( 11 )
