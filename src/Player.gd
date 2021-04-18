@@ -69,3 +69,5 @@ func _on_DeckListener_exited_deck():
 # fullfills aggros guards
 func push(push: Vector2):
 	_vel += push
+func harm(amount: float):
+	self.warmth -= amount

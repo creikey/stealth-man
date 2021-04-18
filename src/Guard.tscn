@@ -17,9 +17,6 @@ radius = 339.015
 [node name="Guard" type="KinematicBody2D"]
 position = Vector2( 4.26004, -3.96426 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="LightPivot" type="Node2D" parent="."]
 

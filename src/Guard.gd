@@ -7,6 +7,7 @@ enum Direction {
 	up,
 }
 
+export var view_radius: float = 150.0
 export (Direction) var direction = Direction.down
 
 const chase_accel: float = 700.0
@@ -46,10 +47,12 @@ func _physics_process(delta):
 		for c in get_slide_count():
 			var collision: KinematicCollision2D = get_slide_collision(c)
 			if collision.collider.is_in_group("aggros_guards"):
-				collision.collider.push(chase_direction.normalized() * 1000.0)
+				collision.collider.push(chase_direction.normalized() * 2500.0)
+				collision.collider.harm(0.1)
 	else:
 		for b in get_aggro_bodies():
-			if not (b.global_position - global_position).normalized().dot(Vector2(1, 0).rotated($LightPivot.rotation)) > 0.8:
+			var towards_b: Vector2 = b.global_position - global_position
+			if not towards_b.normalized().dot(Vector2(1, 0).rotated($LightPivot.rotation)) > 0.8 or towards_b.length() >= view_radius:
 				continue
 			var space_state = get_world_2d().direct_space_state
 			var result: Dictionary = space_state.intersect_ray(global_position, b.global_position, [self])

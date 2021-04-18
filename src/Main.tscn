@@ -54,19 +54,20 @@ position = Vector2( 272.451, 220.934 )
 position = Vector2( 22.3661, -111.184 )
 
 [node name="Ship2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 697.874, 681.28 )
+position = Vector2( 709.955, 717.848 )
 
 [node name="Guard" parent="Ship2/Guards" index="0" instance=ExtResource( 7 )]
-position = Vector2( 4.40677, -133.633 )
+position = Vector2( -59.5932, -50.633 )
+direction = 0
 
 [node name="Ship3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1132.82, 230.459 )
+position = Vector2( 1321.4, -201.536 )
 
 [node name="Guard" parent="Ship3/Guards" index="0" instance=ExtResource( 7 )]
-position = Vector2( 4.40677, -133.633 )
+position = Vector2( 4.40674, -133.633 )
 
 [node name="Guard2" parent="Ship3/Guards" index="1" instance=ExtResource( 7 )]
-position = Vector2( -1.14914, 7.64566 )
+position = Vector2( -1.14917, 7.64566 )
 
 [node name="Ship4" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1558.25, 741.602 )
@@ -75,6 +76,9 @@ position = Vector2( 1558.25, 741.602 )
 position = Vector2( 4.40677, -133.633 )
 
 [node name="LevelElements" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="HeatBarrel" type="Area2D" parent="LevelElements"]
 position = Vector2( 1559.18, 906.601 )
@@ -86,7 +90,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="LevelElements/HeatBarrel"]
 scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
-frame = 3
+frame = 4
 playing = true
 offset = Vector2( -1, -29 )
 
@@ -97,6 +101,29 @@ energy = 1.1
 shadow_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelElements/HeatBarrel"]
+shape = SubResource( 4 )
+
+[node name="HeatBarrel2" type="Area2D" parent="LevelElements"]
+position = Vector2( 723.003, 665.647 )
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="LevelElements/HeatBarrel2"]
+scale = Vector2( 2, 2 )
+frames = SubResource( 3 )
+frame = 3
+playing = true
+offset = Vector2( -1, -29 )
+
+[node name="CharacterAmbientLight" parent="LevelElements/HeatBarrel2" instance=ExtResource( 13 )]
+texture_scale = 0.29
+color = Color( 0.792157, 0.509804, 0.368627, 1 )
+energy = 1.1
+shadow_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelElements/HeatBarrel2"]
 shape = SubResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
@@ -131,10 +158,13 @@ anchor_bottom = 1.0
 texture = ExtResource( 15 )
 script = ExtResource( 16 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 [connection signal="body_entered" from="LevelElements/HeatBarrel" to="LevelElements/HeatBarrel" method="_on_HeatBarrel_body_entered"]
 [connection signal="body_exited" from="LevelElements/HeatBarrel" to="LevelElements/HeatBarrel" method="_on_HeatBarrel_body_exited"]
+[connection signal="body_entered" from="LevelElements/HeatBarrel2" to="LevelElements/HeatBarrel2" method="_on_HeatBarrel_body_entered"]
+[connection signal="body_exited" from="LevelElements/HeatBarrel2" to="LevelElements/HeatBarrel2" method="_on_HeatBarrel_body_exited"]
 
 [editable path="Ship"]
 
